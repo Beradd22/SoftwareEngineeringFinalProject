@@ -11,13 +11,20 @@ import java.util.List;
 
 public class Report {
 
+    String title;
+    List<Blob> pictures;
+    String details;
+    String wType;
+    String location;
+    String dateTime;
+
     public Report() {
-        String title = "";
-        List<Blob> pictures = new ArrayList<>();
-        String details = "";
-        String wType = "";
-        String location = "";
-        String dateTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        this.title = "";
+        this.pictures = new ArrayList<>();
+        this.details = "";
+        this.wType = "";
+        this.location = "";
+        this.dateTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
     }
 
 }
