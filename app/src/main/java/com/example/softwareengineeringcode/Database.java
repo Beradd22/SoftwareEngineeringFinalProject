@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Database {
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
 
 
     public List<Report> getReports() {
@@ -64,7 +64,7 @@ class Database {
     }
 
 
-    private void submitRecord(Report r, Blob b) {
+    public void submitRecord(Report r) {
         String DBFileLocation = "SoftwareEngineeringFinalProject\\app\\src\\main\\assets\\databases\\";
         String DBFileName = "IncidentReportApp.db";
 
@@ -85,7 +85,7 @@ class Database {
         if (cursor.moveToFirst()) {
             for (int i = 0; i < r.pictures.size() - 1; i++) {
                 //Add to Pictures table in DB
-                SQL = "INSERT INTO Pictures(ReportID, Binary) VALUES (" + cursor.toString() + b + ")";
+                SQL = "INSERT INTO Pictures(ReportID, Binary) VALUES (" + cursor.toString() + r.pictures.get(i) + ")";
                 db.execSQL(SQL);
             }
         }
