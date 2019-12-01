@@ -3,4 +3,12 @@
     <string name="title_home">Home</string>
     <string name="title_write_report">Write A Report</string>
     <string name="title_view_report">View Past Reports</string>
+    <string name="write_report_title">Title:</string>
+    <string name="write_report_take_picture">Take Picture:</string>
+    <string name="write_report_text">Write Report:</string>
+    <string name="submit_button_text">Submit</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="enter_title_text">Enter Report Name</string>
+    <string name="type_report_text">Type Report Here</string>
+    <string name="before_submission">Before submitting, a title, at least one image, and report details must be included.</string>
 </resources>
