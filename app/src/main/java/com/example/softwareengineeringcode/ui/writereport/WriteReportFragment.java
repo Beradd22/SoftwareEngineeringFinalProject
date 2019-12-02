@@ -29,6 +29,7 @@ public class WriteReportFragment extends Fragment {
 
     private WriteReportViewModel writeReportViewModel;
     private View writeReportView;
+    private TextView imageCount;
     private List<Blob> Images;
     private static final int pic_id = 123;
 
@@ -48,6 +49,8 @@ public class WriteReportFragment extends Fragment {
             submittedReport.setwType(getWeather());
 
             submittedReport.setLocation(getLocation());
+
+            ((MainActivity)getActivity()).getAccessDB().sendReport(submittedReport);
         }
     };
 
@@ -56,7 +59,6 @@ public class WriteReportFragment extends Fragment {
         public void onClick(View v){
             Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(camera_intent, pic_id);
-            //Images.add(((MainActivity)getActivity()).takePicture());
         }
     };
 
@@ -64,6 +66,10 @@ public class WriteReportFragment extends Fragment {
         if (requestCode == pic_id) {
             Images.add((Blob)data.getExtras().get("data"));
         }
+
+        String countUpdate = Images.size() + " photos";
+        imageCount.setText(countUpdate);
+
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -85,6 +91,8 @@ public class WriteReportFragment extends Fragment {
 
         Button takePictureButton = (Button)root.findViewById((R.id.camera_button));
         takePictureButton.setOnClickListener(takePicture);
+
+        imageCount = (TextView)root.findViewById(R.id.image_count);
 
         return root;
     }

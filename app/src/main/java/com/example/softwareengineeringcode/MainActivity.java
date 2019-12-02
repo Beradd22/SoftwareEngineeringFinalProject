@@ -22,11 +22,13 @@ import java.sql.Blob;
 public class MainActivity extends AppCompatActivity {
 
     private LocationManager locationManager;
+    private AccessDB accessDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        accessDB = new AccessDB(getApplicationContext());
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -55,4 +57,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).toString();
     }
+
+    public AccessDB getAccessDB() { return accessDB; }
 }
