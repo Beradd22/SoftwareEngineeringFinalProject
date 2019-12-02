@@ -35,6 +35,9 @@ public class WriteReportFragment extends Fragment {
             submittedReport.setTitle(reportTitle.getText().toString());
 
             TextView reportDetails = (TextView)writeReportView.findViewById(R.id.detail_text);
+            submittedReport.setDetails(reportDetails.getText().toString());
+
+
         }
     };
 

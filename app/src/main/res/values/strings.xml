@@ -11,4 +11,5 @@
     <string name="enter_title_text">Enter Report Name</string>
     <string name="type_report_text">Type Report Here</string>
     <string name="before_submission">Before submitting, a title, at least one image, and report details must be included.</string>
+    <string name="number_photots">0 photos</string>
 </resources>
