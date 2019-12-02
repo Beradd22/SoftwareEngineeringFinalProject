@@ -49,7 +49,7 @@ public class ViewReportFragment extends Fragment {
         List<Report> tempReportList = ((MainActivity)getActivity()).getAccessDB().getAllReports();
 
         for (int i = 0; i < tempReportList.size(); i++) {
-
+            
         }
     }
 }
