@@ -1,5 +1,8 @@
 package com.example.softwareengineeringcode.ui.writereport;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.softwareengineeringcode.MainActivity;
 import com.example.softwareengineeringcode.R;
 import com.example.softwareengineeringcode.Report;
 
@@ -22,7 +26,6 @@ import java.util.List;
 public class WriteReportFragment extends Fragment {
 
     private WriteReportViewModel writeReportViewModel;
-    private Button submitReportButton;
     private View writeReportView;
     private List<Blob> Images;
 
@@ -31,13 +34,17 @@ public class WriteReportFragment extends Fragment {
         public void onClick(View v){
             Report submittedReport = new Report();
 
-            TextView reportTitle = (TextView)writeReportView.findViewById(R.id.title_text);
+            TextView reportTitle = writeReportView.findViewById(R.id.title_text);
             submittedReport.setTitle(reportTitle.getText().toString());
 
-            TextView reportDetails = (TextView)writeReportView.findViewById(R.id.detail_text);
+            TextView reportDetails = writeReportView.findViewById(R.id.detail_text);
             submittedReport.setDetails(reportDetails.getText().toString());
 
+            submittedReport.setPictures(Images);
 
+            submittedReport.setwType(getWeather());
+
+            submittedReport.setLocation(getLocation());
         }
     };
 
@@ -55,8 +62,18 @@ public class WriteReportFragment extends Fragment {
             }
         });
 
-        submitReportButton = (Button)root.findViewById(R.id.submit_button);
+        Button submitReportButton = (Button)root.findViewById(R.id.submit_button);
         submitReportButton.setOnClickListener(submitReport);
         return root;
+    }
+
+    private String getWeather() {
+        String weather = "";
+
+        return weather;
+    }
+
+    public  String getLocation() {
+        return ((MainActivity)getActivity()).getLocation();
     }
 }
