@@ -14,17 +14,26 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.softwareengineeringcode.R;
+import com.example.softwareengineeringcode.Report;
+
+import java.sql.Blob;
+import java.util.List;
 
 public class WriteReportFragment extends Fragment {
 
     private WriteReportViewModel writeReportViewModel;
     private Button submitReportButton;
     private View writeReportView;
+    private List<Blob> Images;
 
     private Button.OnClickListener submitReport = new Button.OnClickListener() {
         @Override
         public void onClick(View v){
+            Report submittedReport = new Report();
+
             TextView reportTitle = (TextView)writeReportView.findViewById(R.id.title_text);
+            submittedReport.setTitle(reportTitle.getText().toString());
+
             TextView reportDetails = (TextView)writeReportView.findViewById(R.id.detail_text);
         }
     };

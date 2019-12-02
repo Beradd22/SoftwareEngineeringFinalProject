@@ -27,4 +27,29 @@ public class Report {
         this.dateTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
     }
 
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPictures(List<Blob> pictures) {
+        this.pictures = pictures;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public void setwType(String wType) {
+        this.wType = wType;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
 }
