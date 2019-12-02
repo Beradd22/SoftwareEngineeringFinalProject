@@ -48,6 +48,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/title_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/enter_title_text"
@@ -107,6 +108,7 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/detail_text"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:hint="@string/type_report_text" />
