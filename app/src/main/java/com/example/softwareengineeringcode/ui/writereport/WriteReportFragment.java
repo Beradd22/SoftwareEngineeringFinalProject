@@ -1,9 +1,11 @@
 package com.example.softwareengineeringcode.ui.writereport;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ public class WriteReportFragment extends Fragment {
     private WriteReportViewModel writeReportViewModel;
     private View writeReportView;
     private List<Blob> Images;
+    private static final int pic_id = 123;
 
     private Button.OnClickListener submitReport = new Button.OnClickListener() {
         @Override
@@ -48,6 +51,21 @@ public class WriteReportFragment extends Fragment {
         }
     };
 
+    private Button.OnClickListener takePicture = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v){
+            Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(camera_intent, pic_id);
+            //Images.add(((MainActivity)getActivity()).takePicture());
+        }
+    };
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == pic_id) {
+            Images.add((Blob)data.getExtras().get("data"));
+        }
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         writeReportViewModel =
@@ -64,6 +82,10 @@ public class WriteReportFragment extends Fragment {
 
         Button submitReportButton = (Button)root.findViewById(R.id.submit_button);
         submitReportButton.setOnClickListener(submitReport);
+
+        Button takePictureButton = (Button)root.findViewById((R.id.camera_button));
+        takePictureButton.setOnClickListener(takePicture);
+
         return root;
     }
 
@@ -73,7 +95,7 @@ public class WriteReportFragment extends Fragment {
         return weather;
     }
 
-    public  String getLocation() {
+    private  String getLocation() {
         return ((MainActivity)getActivity()).getLocation();
     }
 }

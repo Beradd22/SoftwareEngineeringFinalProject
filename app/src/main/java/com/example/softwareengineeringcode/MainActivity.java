@@ -2,10 +2,12 @@ package com.example.softwareengineeringcode;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -14,6 +16,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.sql.Blob;
 
 public class MainActivity extends AppCompatActivity {
 
