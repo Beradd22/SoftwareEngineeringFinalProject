@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ class Database {
             try {
                 //Creates DB
                 String SQL = "CREATE TABLE \"Reports\" ( \"ReportID\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, \"Title\" TEXT NOT NULL, \"WeatherType\" TEXT NOT NULL, \"Location\" TEXT NOT NULL, \"DateTime\" TEXT NOT NULL, \"Details\" TEXT NOT NULL )";
-                String SQL2 = "CREATE TABLE \"Pictures\" ( \"PictureID\" INTEGER NOT NULL DEFAULT 1 PRIMARY KEY AUTOINCREMENT UNIQUE, \"ReportID\" INTEGER NOT NULL UNIQUE, \"Binary\" BLOB NOT NULL )";
+                String SQL2 = "CREATE TABLE \"Pictures\" ( \"PictureID\" INTEGER NOT NULL DEFAULT 1 PRIMARY KEY AUTOINCREMENT UNIQUE, \"ReportID\" INTEGER NOT NULL, \"Binary\" BLOB NOT NULL )";
                 db = SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath(DBFileName), null);
                 db.execSQL(SQL);
                 db.execSQL(SQL2);
@@ -77,20 +78,69 @@ class Database {
     public Report getNewestReport() {
         Report report = new Report();
         String DBFileName = "IncidentReportApp.db";
-        String query = "SELECT * FROM Reports ORDER BY ReportID DESC LIMIT 1";
 
-        try {
-            //Open Database
-            db = SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath(DBFileName), null);
-            Cursor cursor = db.rawQuery(query, null);
+        //If DB Does Not Exist Create It
+        if (!(context.getDatabasePath(DBFileName).exists()) || context.getDatabasePath(DBFileName) == null) {
+            try {
+                //Creates DB
+                String SQL = "CREATE TABLE \"Reports\" ( \"ReportID\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, \"Title\" TEXT NOT NULL, \"WeatherType\" TEXT NOT NULL, \"Location\" TEXT NOT NULL, \"DateTime\" TEXT NOT NULL, \"Details\" TEXT NOT NULL )";
+                String SQL2 = "CREATE TABLE \"Pictures\" ( \"PictureID\" INTEGER NOT NULL DEFAULT 1 PRIMARY KEY AUTOINCREMENT UNIQUE, \"ReportID\" INTEGER NOT NULL, \"Binary\" BLOB NOT NULL )";
+                db = SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath(DBFileName), null);
+                db.execSQL(SQL);
+                db.execSQL(SQL2);
 
-            String row = cursor.getString(0);
-            //PUT DATA INTO report OBJ then return the OBJ
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
-            return report;
+        } else {//If DB Does Exist
+            try {
+                //Open Database
+                db = SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath(DBFileName), null);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                //Query For Reports
+                String query = "SELECT * FROM Reports ORDER BY ReportID DESC LIMIT 1";
+                Cursor cursor = db.rawQuery(query, null);
+                String reportID = "";
+
+                //Manipulating Cursor Data
+                if (cursor != null) {
+                    if (cursor.moveToFirst()) {
+                        //Fill Report
+                        reportID = cursor.getString(0);
+                        report.title = cursor.getString(1);
+                        report.wType = cursor.getString(2);
+                        report.location = cursor.getString(3);
+                        report.dateTime = cursor.getString(4);
+                        report.details = cursor.getString(5);
+                    }
+                    cursor.close();
+                }
+
+                //Get Pictures Relating to Report
+                query = "SELECT * FROM Pictures WHERE ReportID = " + "reportID";
+                cursor = db.rawQuery(query, null);
+
+                //Add All Pictures From Database into Blob Objs and into Pictures List
+                if (cursor != null) {
+                    if (cursor.moveToFirst()) {
+                        Blob blob = null;
+                        blob.setBytes(0L, cursor.getBlob(0));
+                        report.pictures.add(blob);
+                        while (cursor.moveToNext()) {
+                            blob.setBytes(0L, cursor.getBlob(0));
+                            report.pictures.add(blob);
+                        }
+                    }
+                }
+                cursor.close();
+
+                return report;
+
+            } catch (
+                    Exception e) {
+                e.printStackTrace();
+            }
         }
 
         db.close(); //Close Database Connection
@@ -123,11 +173,14 @@ class Database {
                 if (cursor.moveToFirst()) {
                     for (int i = 0; i < r.pictures.size() - 1; i++) {
                         //Add to Pictures table in DB
-                        SQL = "INSERT INTO Pictures(ReportID, Binary) VALUES (" + cursor.getString(0) + r.pictures.get(i) + ")"; //column 0 of cursor is Highest ReportID
+                        int blobLength = (int) r.pictures.get(i).length();
+                        SQL = "INSERT INTO Pictures(ReportID, Binary) VALUES (" + cursor.getString(0) + " , "+ r.pictures.get(i).getBytes(1L, blobLength) + ")"; //column 0 of cursor is Highest ReportID
                         db.execSQL(SQL);
                     }
                 }
             } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (java.sql.SQLException e) {
                 e.printStackTrace();
             }
         }
