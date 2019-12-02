@@ -32,20 +32,31 @@ public class Report {
         this.title = title;
     }
 
+    public String getTitle() { return title; }
+
     public void setPictures(List<Blob> pictures) {
         this.pictures = pictures;
     }
+
+    public List<Blob> getPictures() { return pictures; }
 
     public void setDetails(String details) {
         this.details = details;
     }
 
+    public String getDetails() { return details; }
+
     public void setwType(String wType) {
         this.wType = wType;
     }
+
+    public String getwType() { return wType; }
 
     public void setLocation(String location) {
         this.location = location;
     }
 
+    public String getLocation() { return location; }
+
+    public String getDateTime() { return dateTime; }
 }
