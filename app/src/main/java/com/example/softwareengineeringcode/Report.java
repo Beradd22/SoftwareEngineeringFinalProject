@@ -48,8 +48,4 @@ public class Report {
         this.location = location;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
-    }
-
 }
