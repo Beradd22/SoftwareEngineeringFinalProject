@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    // Get the last known location of the device and return it as a string
     public String getLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -58,5 +59,6 @@ public class MainActivity extends AppCompatActivity {
         return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).toString();
     }
 
+    // Sends the AccessDB global variable
     public AccessDB getAccessDB() { return accessDB; }
 }
