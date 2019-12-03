@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
     private int locationPermission =1;
     private RequestQueue mQueue;
     private String weather;
+    static final private int Camera_Code = 1;
+    static final private int Location_Code= 2;
+    static final private int Internet_Code = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +60,20 @@ public class MainActivity extends AppCompatActivity {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mQueue = Volley.newRequestQueue(this);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         accessDB = new AccessDB(getApplicationContext());
-        //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, );
+
+        ActivityCompat.requestPermissions(this, new String[]
+                {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, Camera_Code);
+        ActivityCompat.requestPermissions(this, new String[]
+                        Manifest.permission.ACCESS_COARSE_LOCATION}, Location_Code);
+        ActivityCompat.requestPermissions(this, new String[]
+                {Manifest.permission.INTERNET}, Internet_Code);
         setContentView(R.layout.activity_main);
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -89,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
                         if (location != null) {
                             longitude = location.getLongitude();
                             latitude = location.getLatitude();
-                            System.out.println(longitude+"   "+latitude);
                         }
                     }
                 });
