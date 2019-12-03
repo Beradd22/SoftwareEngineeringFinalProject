@@ -51,9 +51,16 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v){
             Report tempReport = ((MainActivity)getActivity()).getAccessDB().getNewestReport();
+
             reportTitle.setText(tempReport.getTitle());
             reportDets.setText(tempReport.getDetails());
-            weatherDets.setText("");
+            weatherDets.setText(tempReport.getwType());
+            Date.setText(tempReport.getDateTime());
+
+            if (tempReport.getPictures().size() > 0) {
+
+            }
+
 
         }
     };
