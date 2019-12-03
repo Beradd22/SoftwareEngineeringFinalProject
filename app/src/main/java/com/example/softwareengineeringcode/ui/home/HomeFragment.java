@@ -22,6 +22,7 @@ import com.example.softwareengineeringcode.Report;
 
 public class HomeFragment extends Fragment {
 
+    // Global variables
     private HomeViewModel homeViewModel;
     private int imageCounter = 0;
     private Button nextImageButton;
@@ -29,19 +30,22 @@ public class HomeFragment extends Fragment {
     private Button lastReportButton;
     private Button selectedReportButton;
 
+    // Global references to ui pieces
     private TextView reportTitle;
     private TextView reportDets;
     private ImageView reportImage;
     private TextView weatherDets;
     private TextView Date;
 
+    // Switches to the next image of a reports image list
     private Button.OnClickListener nextImage = new Button.OnClickListener() {
         @Override
         public void onClick(View v){
-            
+
         }
     };
 
+    // Switches to the previous image of a reports image list
     private Button.OnClickListener previousImage = new Button.OnClickListener() {
         @Override
         public void onClick(View v){
