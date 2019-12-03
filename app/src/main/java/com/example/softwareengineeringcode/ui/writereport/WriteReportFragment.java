@@ -3,6 +3,7 @@ package com.example.softwareengineeringcode.ui.writereport;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -23,7 +24,9 @@ import com.example.softwareengineeringcode.MainActivity;
 import com.example.softwareengineeringcode.R;
 import com.example.softwareengineeringcode.Report;
 
+import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +42,8 @@ public class WriteReportFragment extends Fragment {
     private TextView imageCount;
 
     // Stores all the images taken
-    private List<Blob> Images = new ArrayList<>();
+    private List<Bitmap> Images = new ArrayList<>();
+    private List<Blob> convertedImages = new ArrayList<>();
 
     // Static variable used for the image saving function
     private static final int pic_id = 123;
@@ -63,7 +67,22 @@ public class WriteReportFragment extends Fragment {
             reportDetails.setText("");
 
             // Sets the report image list
-            submittedReport.setPictures(Images);
+            for (Bitmap image : Images) {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                image.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                byte[] data = bos.toByteArray();
+                Blob blob = null;
+
+                try {
+                    blob.setBytes(1, data);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                convertedImages.add(blob);
+            }
+
+            submittedReport.setPictures(convertedImages);
             Images.clear();
 
             // Sets the report weather data taken from the weather api
@@ -95,7 +114,7 @@ public class WriteReportFragment extends Fragment {
     // Camera capture helper function
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == pic_id) {
-            Images.add((Blob)data.getExtras().get("data"));
+            Images.add((Bitmap)data.getExtras().get("data"));
         }
 
         String countUpdate = Images.size() + " photos";

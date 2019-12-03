@@ -5,8 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ScrollView;
-import android.widget.TableLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.softwareengineeringcode.AccessDB;
 import com.example.softwareengineeringcode.MainActivity;
 import com.example.softwareengineeringcode.R;
 import com.example.softwareengineeringcode.Report;
@@ -25,8 +23,9 @@ import java.util.List;
 public class ViewReportFragment extends Fragment {
 
     private ViewReportViewModel viewReportViewModel;
-    private ScrollView reportList;
+    private LinearLayout reportList;
     private List<Report> listOfReports;
+    private Button updateButton;
 
     private Button.OnClickListener getSelectedReport = new Button.OnClickListener() {
 
@@ -49,6 +48,17 @@ public class ViewReportFragment extends Fragment {
         }
     };
 
+    private Button.OnClickListener updateList = new Button.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            listOfReports = ((MainActivity) getActivity()).getAccessDB().getAllReports();
+
+            updateReportList();
+
+        }
+    };
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewReportViewModel =
@@ -62,13 +72,10 @@ public class ViewReportFragment extends Fragment {
             }
         });
 
-        reportList = (ScrollView)root.findViewById(R.id.report_list);
+        reportList = (LinearLayout)root.findViewById(R.id.report_list);
 
-        listOfReports = ((MainActivity)getActivity()).getAccessDB().getAllReports();
-
-        if (listOfReports.size() > 0) {
-            updateReportList();
-        }
+        updateButton = (Button)root.findViewById(R.id.update_list_button);
+        updateButton.setOnClickListener(updateList);
 
         return root;
     }

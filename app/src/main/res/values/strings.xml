@@ -16,4 +16,5 @@
     <string name="home_weather_text">Weather Details:</string>
     <string name="home_details_text">Details:</string>
     <string name="home_date_text">Date:</string>
+    <string name="update_list">Update List</string>
 </resources>
