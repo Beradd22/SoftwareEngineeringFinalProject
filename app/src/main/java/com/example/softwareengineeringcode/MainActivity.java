@@ -164,4 +164,6 @@ public class MainActivity extends AppCompatActivity {
     }
     // Sends the AccessDB global variable
     public AccessDB getAccessDB() { return accessDB; }
+
+    public void setReportToDisplay(Report report) { reportToDisplay = report; }
 }
