@@ -22,11 +22,13 @@ import java.util.List;
 
 public class ViewReportFragment extends Fragment {
 
+    // Global variables
     private ViewReportViewModel viewReportViewModel;
     private LinearLayout reportList;
     private List<Report> listOfReports;
     private Button updateButton;
 
+    // On click listener to select a report to view on the homepage
     private Button.OnClickListener getSelectedReport = new Button.OnClickListener() {
 
         @Override
@@ -44,6 +46,7 @@ public class ViewReportFragment extends Fragment {
         }
     };
 
+    // On click listener to update the list of reports.
     private Button.OnClickListener updateList = new Button.OnClickListener() {
 
         @Override
@@ -70,14 +73,17 @@ public class ViewReportFragment extends Fragment {
             }
         });
 
+        // Grab reference to report list
         reportList = (LinearLayout)root.findViewById(R.id.report_list);
 
+        // Grab reference to update list button
         updateButton = (Button)root.findViewById(R.id.update_list_button);
         updateButton.setOnClickListener(updateList);
 
         return root;
     }
 
+    // Adds views for all the reports
     private void updateReportList() {
         reportList.removeAllViews();
 
@@ -85,8 +91,8 @@ public class ViewReportFragment extends Fragment {
             Button newTextView =
                     new Button(getActivity().getApplicationContext());
 
-            String toDisplay = listOfReports.get(i).getTitle() + " "
-                    + listOfReports.get(i).getDateTime();
+            String toDisplay = (listOfReports.get(i).getTitle() + " "
+                    + listOfReports.get(i).getDateTime());
 
             newTextView.setText(toDisplay);
 
