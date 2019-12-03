@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ScrollView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -24,6 +26,28 @@ public class ViewReportFragment extends Fragment {
 
     private ViewReportViewModel viewReportViewModel;
     private ScrollView reportList;
+    private List<Report> listOfReports;
+
+    private Button.OnClickListener getSelectedReport = new Button.OnClickListener() {
+
+        @Override
+        public void onClick(View v){
+            Button clicked = (Button)v;
+            String buttonText = clicked.getText().toString();
+
+            String[] getDate = buttonText.split(" ");
+
+            Report reportToDisplay;
+
+            for (Report report : listOfReports) {
+                if (report.getDateTime().equals(getDate[1])) {
+                    reportToDisplay = report;
+                }
+            }
+
+
+        }
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,16 +64,28 @@ public class ViewReportFragment extends Fragment {
 
         reportList = (ScrollView)root.findViewById(R.id.report_list);
 
-        updateReportList();
+        listOfReports = ((MainActivity)getActivity()).getAccessDB().getAllReports();
+
+        if (listOfReports.size() > 0) {
+            updateReportList();
+        }
 
         return root;
     }
 
     private void updateReportList() {
-        List<Report> tempReportList = ((MainActivity)getActivity()).getAccessDB().getAllReports();
+        for (int i = listOfReports.size()-1; i >= 0; i--) {
+            Button newTextView =
+                    new Button(getActivity().getApplicationContext());
 
-        for (int i = 0; i < tempReportList.size(); i++) {
+            String toDisplay = listOfReports.get(i).getTitle() + " "
+                    + listOfReports.get(i).getDateTime();
 
+            newTextView.setText(toDisplay);
+
+            newTextView.setOnClickListener(getSelectedReport);
+
+            reportList.addView(newTextView);
         }
     }
 }

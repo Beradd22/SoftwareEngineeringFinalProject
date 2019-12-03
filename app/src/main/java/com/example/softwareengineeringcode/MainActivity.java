@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private LocationManager locationManager;
     private AccessDB accessDB;
+    private Report reportToDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

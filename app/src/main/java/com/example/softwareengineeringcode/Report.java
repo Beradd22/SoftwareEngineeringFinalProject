@@ -50,13 +50,9 @@ public class Report {
         this.wType = wType;
     }
 
-    public String getwType() { return wType; }
-
     public void setLocation(String location) {
         this.location = location;
     }
-
-    public String getLocation() { return location; }
 
     public String getDateTime() { return dateTime; }
 }
