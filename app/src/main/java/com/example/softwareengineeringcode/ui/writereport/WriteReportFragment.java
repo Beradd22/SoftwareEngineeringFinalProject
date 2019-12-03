@@ -91,8 +91,8 @@ public class WriteReportFragment extends Fragment {
             // Calls the access database class
             // from main activity and sends the
             // report to the database
-            if (submittedReport.getTitle().trim().equals("") && submittedReport.getPictures().size() > 0
-                    && submittedReport.getDetails().trim().equals("")) {
+            if ( (!submittedReport.getTitle().trim().equals("")) && submittedReport.getPictures().size() > 0
+                    && (!submittedReport.getDetails().trim().equals(""))) {
                 ((MainActivity)getActivity()).getAccessDB().sendReport(submittedReport);
             }
         }

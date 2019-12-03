@@ -38,7 +38,7 @@ public class HomeFragment extends Fragment {
     private Button.OnClickListener nextImage = new Button.OnClickListener() {
         @Override
         public void onClick(View v){
-
+            
         }
     };
 
