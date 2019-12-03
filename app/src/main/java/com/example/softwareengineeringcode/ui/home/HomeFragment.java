@@ -1,5 +1,7 @@
 package com.example.softwareengineeringcode.ui.home;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,17 +60,30 @@ public class HomeFragment extends Fragment {
             Date.setText(tempReport.getDateTime());
 
             if (tempReport.getPictures().size() > 0) {
-
+                Bitmap bmp = BitmapFactory.decodeByteArray(tempReport.getPictures().get(0),
+                        0, tempReport.getPictures().get(0).length);
+                reportImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, reportImage.getWidth(),
+                        reportImage.getHeight(), false));
             }
-
-
         }
     };
 
     private Button.OnClickListener showSelectedReport = new Button.OnClickListener() {
         @Override
         public void onClick(View v){
+            Report tempReport = ((MainActivity)getActivity()).getReportToDisplay();
 
+            reportTitle.setText(tempReport.getTitle());
+            reportDets.setText(tempReport.getDetails());
+            weatherDets.setText(tempReport.getwType());
+            Date.setText(tempReport.getDateTime());
+
+            if (tempReport.getPictures().size() > 0) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(tempReport.getPictures().get(0),
+                        0, tempReport.getPictures().get(0).length);
+                reportImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, reportImage.getWidth(),
+                        reportImage.getHeight(), false));
+            }
         }
     };
 

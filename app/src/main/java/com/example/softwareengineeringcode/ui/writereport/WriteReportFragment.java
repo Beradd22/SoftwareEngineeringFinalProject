@@ -75,8 +75,9 @@ public class WriteReportFragment extends Fragment {
                 convertedImages.add(data);
             }
 
-            //submittedReport.setPictures(convertedImages);
+            submittedReport.setPictures(convertedImages);
             Images.clear();
+            convertedImages.clear();
 
 
             // Sets the location after receiving GPS data

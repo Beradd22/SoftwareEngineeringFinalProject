@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private LocationManager locationManager;
     private AccessDB accessDB;
-    private Report reportToDisplay;
+    private Report reportToDisplay = new Report();
     private FusedLocationProviderClient fusedLocationClient;
     public double longitude;
     public double latitude;
@@ -167,4 +167,6 @@ public class MainActivity extends AppCompatActivity {
     public AccessDB getAccessDB() { return accessDB; }
 
     public void setReportToDisplay(Report report) { reportToDisplay = report; }
+
+    public Report getReportToDisplay() { return reportToDisplay; }
 }
