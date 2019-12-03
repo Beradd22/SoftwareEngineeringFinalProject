@@ -53,6 +53,8 @@ public class HomeFragment extends Fragment {
         }
     };
 
+    // Changes all the information displayed on the home screen to the info of
+    // the last report that was submitted
     private Button.OnClickListener showLastReport = new Button.OnClickListener() {
         @Override
         public void onClick(View v){
@@ -72,6 +74,8 @@ public class HomeFragment extends Fragment {
         }
     };
 
+    // Changes all the information displayed on the home screen to the info of
+    // a report selected from the view report tab
     private Button.OnClickListener showSelectedReport = new Button.OnClickListener() {
         @Override
         public void onClick(View v){
@@ -104,21 +108,25 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Gets the reference to all the ui pieces that will be updated by the report info
         reportTitle = (TextView)root.findViewById(R.id.report_title);
         reportDets = (TextView)root.findViewById(R.id.report_details);
         weatherDets= (TextView)root.findViewById(R.id.weather_details);
         Date = (TextView)root.findViewById(R.id.report_date);
         reportImage = (ImageView)root.findViewById(R.id.report_images);
 
+        // Gets references to the image changing buttons and sets the listeners
         nextImageButton = (Button)root.findViewById(R.id.next_image_button);
         nextImageButton.setOnClickListener(nextImage);
 
         prevImageButton = (Button)root.findViewById(R.id.previous_image_button);
         prevImageButton.setOnClickListener(previousImage);
 
+        // Gets references to the last report button and sets the listener
         lastReportButton = (Button)root.findViewById(R.id.last_report_button);
         lastReportButton.setOnClickListener(showLastReport);
 
+        // Gets reference to the selected report button and sets the listener
         selectedReportButton = (Button)root.findViewById(R.id.report_selected_button);
         selectedReportButton.setOnClickListener(showSelectedReport);
 

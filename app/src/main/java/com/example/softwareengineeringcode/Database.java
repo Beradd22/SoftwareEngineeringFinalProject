@@ -168,7 +168,7 @@ class Database {
         }
 
         //Add to Reports table in DB
-        String SQL = "INSERT INTO Reports(Title,WeatherType,Location,DateTime,Details) VALUES ('" + r.title + "','" + r.wType + "','" + r.location + "','" + r.dateTime + "','" + r.details + "')'";
+        String SQL = "INSERT INTO Reports(Title,WeatherType,Location,DateTime,Details) VALUES ('" + r.title + "','" + r.wType + "','" + r.location + "','" + r.dateTime + "','" + r.details + "')";
 
         try {
             //Puts Data into Database

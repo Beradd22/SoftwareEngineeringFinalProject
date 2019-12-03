@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
     private AccessDB accessDB;
     private Report reportToDisplay = new Report();
     private FusedLocationProviderClient fusedLocationClient;
-    public double longitude;
-    public double latitude;
+    public double longitude = 37.422;
+    public double latitude = -122.084;
     private int locationPermission =1;
     private RequestQueue mQueue;
-    private String weather;
+    private String weather = "Hazy";
     static final private int Camera_Code = 1;
     static final private int Location_Code= 2;
     static final private int Internet_Code = 3;
@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Get the last known location of the device and return it as a string
     public String getLocation() {
-        return (longitude+" "+latitude);
+        useGps();
+        return (longitude + " " + latitude);
     }
 
     //Use GPS to get longitude and latitude
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         if(ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             requestPermission();
         }
+
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override

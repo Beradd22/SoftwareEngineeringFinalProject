@@ -76,8 +76,6 @@ public class WriteReportFragment extends Fragment {
             }
 
             submittedReport.setPictures(convertedImages);
-            Images.clear();
-            convertedImages.clear();
             imageCount.setText("0 photos");
 
 
@@ -96,6 +94,8 @@ public class WriteReportFragment extends Fragment {
                     && (!submittedReport.getDetails().trim().equals(""))) {
                 ((MainActivity)getActivity()).getAccessDB().sendReport(submittedReport);
             }
+            Images.clear();
+            convertedImages.clear();
         }
     };
 
