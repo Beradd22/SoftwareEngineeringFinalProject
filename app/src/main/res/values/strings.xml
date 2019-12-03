@@ -17,4 +17,6 @@
     <string name="home_details_text">Details:</string>
     <string name="home_date_text">Date:</string>
     <string name="update_list">Update List</string>
+    <string name="next_image_button">Next Image</string>
+    <string name="previous_image_button">Previous Image</string>
 </resources>

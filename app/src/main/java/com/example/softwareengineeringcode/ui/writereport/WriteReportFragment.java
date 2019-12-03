@@ -27,7 +27,6 @@ import com.example.softwareengineeringcode.Report;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class WriteReportFragment extends Fragment {
 
     // Stores all the images taken
     private List<Bitmap> Images = new ArrayList<>();
-    private List<Blob> convertedImages = new ArrayList<>();
+    private List<byte[]> convertedImages = new ArrayList<>();
 
     // Static variable used for the image saving function
     private static final int pic_id = 123;
@@ -72,18 +71,11 @@ public class WriteReportFragment extends Fragment {
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 image.compress(Bitmap.CompressFormat.PNG, 100, bos);
                 byte[] data = bos.toByteArray();
-                Blob blob = null;
 
-                try {
-                    blob.setBytes(1, data);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-                convertedImages.add(blob);
+                convertedImages.add(data);
             }
 
-            submittedReport.setPictures(convertedImages);
+            //submittedReport.setPictures(convertedImages);
             Images.clear();
 
 

@@ -36,11 +36,9 @@ public class ViewReportFragment extends Fragment {
 
             String[] getDate = buttonText.split(" ");
 
-            Report reportToDisplay;
-
             for (Report report : listOfReports) {
                 if (report.getDateTime().equals(getDate[1])) {
-                    reportToDisplay = report;
+                    ((MainActivity)getActivity()).setReportToDisplay(report);
                 }
             }
 
@@ -81,6 +79,8 @@ public class ViewReportFragment extends Fragment {
     }
 
     private void updateReportList() {
+        reportList.removeAllViews();
+
         for (int i = listOfReports.size()-1; i >= 0; i--) {
             Button newTextView =
                     new Button(getActivity().getApplicationContext());
