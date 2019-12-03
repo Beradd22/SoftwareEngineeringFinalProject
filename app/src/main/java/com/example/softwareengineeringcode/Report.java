@@ -12,7 +12,7 @@ import java.util.List;
 public class Report {
 
     String title;
-    List<Blob> pictures;
+    List<byte[]> pictures;
     String details;
     String wType;
     String location;
@@ -34,11 +34,11 @@ public class Report {
 
     public String getTitle() { return title; }
 
-    public void setPictures(List<Blob> pictures) {
+    public void setPictures(List<byte[]> pictures) {
         this.pictures = pictures;
     }
 
-    public List<Blob> getPictures() { return pictures; }
+    public List<byte[]> getPictures() { return pictures; }
 
     public void setDetails(String details) {
         this.details = details;

@@ -121,15 +121,14 @@ class Database {
                 query = "SELECT * FROM Pictures WHERE ReportID = " + "reportID";
                 cursor = db.rawQuery(query, null);
 
-                //Add All Pictures From Database into Blob Objs and into Pictures List
+                //Add All Pictures From Database into Pictures List -A picture is a byte[]
                 if (cursor != null) {
                     if (cursor.moveToFirst()) {
-                        Blob blob = null;
-                        blob.setBytes(0L, cursor.getBlob(0));
-                        report.pictures.add(blob);
+                        //first picture
+                        report.pictures.add(cursor.getBlob(0));
+                        //all other pictures
                         while (cursor.moveToNext()) {
-                            blob.setBytes(0L, cursor.getBlob(0));
-                            report.pictures.add(blob);
+                            report.pictures.add(cursor.getBlob(0));
                         }
                     }
                 }
@@ -153,7 +152,7 @@ class Database {
         Boolean passed = false;
 
         //Add to Reports table in DB
-        String SQL = "INSERT INTO Reports(Title,WeatherType,Location,DateTime,Details) VALUES (" + r.title + "," + r.wType + "," + r.location + "," + r.dateTime + r.details + ")";
+        String SQL = "INSERT INTO Reports(Title,WeatherType,Location,DateTime,Details) VALUES ('" + r.title + "','" + r.wType + "','" + r.location + "','" + r.dateTime + "','" + r.details + "')'";
 
         try {
             //Puts Data into Database
@@ -173,18 +172,17 @@ class Database {
                 if (cursor.moveToFirst()) {
                     for (int i = 0; i < r.pictures.size() - 1; i++) {
                         //Add to Pictures table in DB
-                        int blobLength = (int) r.pictures.get(i).length();
-                        SQL = "INSERT INTO Pictures(ReportID, Binary) VALUES (" + cursor.getString(0) + " , "+ r.pictures.get(i).getBytes(1L, blobLength) + ")"; //column 0 of cursor is Highest ReportID
+                        SQL = "INSERT INTO Pictures(ReportID, Binary) VALUES (" + cursor.getString(0) + " , " + r.pictures.get(i).toString() + ")"; //column 0 of cursor is Highest ReportID; These are both non-strings
                         db.execSQL(SQL);
                     }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            } catch (java.sql.SQLException e) {
-                e.printStackTrace();
+
             }
+            db.close(); //Close Database Connection
         }
-        db.close(); //Close Database Connection
     }
+
 
 }
