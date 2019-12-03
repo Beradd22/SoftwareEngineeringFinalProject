@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mQueue.add(request);
     }
+
     //Request Permission For Location
     private void requestPermission(){
         if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){

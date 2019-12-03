@@ -19,4 +19,6 @@
     <string name="update_list">Update List</string>
     <string name="next_image_button">Next Image</string>
     <string name="previous_image_button">Previous Image</string>
+    <string name="show_last_report">Last Report</string>
+    <string name="show_selected_report">Selected Report</string>
 </resources>

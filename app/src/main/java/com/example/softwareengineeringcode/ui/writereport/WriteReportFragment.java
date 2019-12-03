@@ -148,6 +148,7 @@ public class WriteReportFragment extends Fragment {
         return root;
     }
 
+    // Calls the getWeather function in main
     private String getWeather() {
         return ((MainActivity)getActivity()).getWeather();
     }
