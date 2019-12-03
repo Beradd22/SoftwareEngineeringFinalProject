@@ -23,6 +23,7 @@ import com.example.softwareengineeringcode.R;
 import com.example.softwareengineeringcode.Report;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WriteReportFragment extends Fragment {
@@ -37,7 +38,7 @@ public class WriteReportFragment extends Fragment {
     private TextView imageCount;
 
     // Stores all the images taken
-    private List<Blob> Images;
+    private List<Blob> Images = new ArrayList<>();
 
     // Static variable used for the image saving function
     private static final int pic_id = 123;
@@ -53,16 +54,20 @@ public class WriteReportFragment extends Fragment {
             // Sets the report title
             TextView reportTitle = writeReportView.findViewById(R.id.title_text);
             submittedReport.setTitle(reportTitle.getText().toString());
+            reportTitle.setText("");
 
             // Sets the report details
             TextView reportDetails = writeReportView.findViewById(R.id.detail_text);
             submittedReport.setDetails(reportDetails.getText().toString());
+            reportDetails.setText("");
 
             // Sets the report image list
             submittedReport.setPictures(Images);
+            Images.clear();
 
             // Sets the report weather data taken from the weather api
             submittedReport.setwType(getWeather());
+
 
             // Sets the location after receiving GPS data
             submittedReport.setLocation(getLocation());
@@ -70,9 +75,9 @@ public class WriteReportFragment extends Fragment {
             // Calls the access database class
             // from main activity and sends the
             // report to the database
-            if (submittedReport.getTitle().trim() != "" && submittedReport.getPictures().size() > 0
-                    && submittedReport.getDetails().trim() != "") {
-                ((MainActivity) getActivity()).getAccessDB().sendReport(submittedReport);
+            if (submittedReport.getTitle().trim().equals("") && submittedReport.getPictures().size() > 0
+                    && submittedReport.getDetails().trim().equals("")) {
+                ((MainActivity)getActivity()).getAccessDB().sendReport(submittedReport);
             }
         }
     };
