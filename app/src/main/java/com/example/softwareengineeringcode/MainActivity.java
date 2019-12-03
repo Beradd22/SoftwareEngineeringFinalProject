@@ -68,8 +68,7 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]
                 {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE}, Camera_Code);
-        ActivityCompat.requestPermissions(this, new String[]
-                        Manifest.permission.ACCESS_COARSE_LOCATION}, Location_Code);
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_COARSE_LOCATION}, Location_Code);
         ActivityCompat.requestPermissions(this, new String[]
                 {Manifest.permission.INTERNET}, Internet_Code);
         setContentView(R.layout.activity_main);
