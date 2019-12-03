@@ -146,10 +146,26 @@ class Database {
         return report; //will be NULL
     }
 
-    //This function assumes database is already created
     public void submitRecord(Report r) {
         String DBFileName = "IncidentReportApp.db";
         Boolean passed = false;
+
+        //If DB Does Not Exist Create It
+        if (!(context.getDatabasePath(DBFileName).exists()) || context.getDatabasePath(DBFileName) == null)
+        {
+            try {
+                //Creates DB
+                String SQL = "CREATE TABLE \"Reports\" ( \"ReportID\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, \"Title\" TEXT NOT NULL, \"WeatherType\" TEXT NOT NULL, \"Location\" TEXT NOT NULL, \"DateTime\" TEXT NOT NULL, \"Details\" TEXT NOT NULL )";
+                String SQL2 = "CREATE TABLE \"Pictures\" ( \"PictureID\" INTEGER NOT NULL DEFAULT 1 PRIMARY KEY AUTOINCREMENT UNIQUE, \"ReportID\" INTEGER NOT NULL, \"Binary\" BLOB NOT NULL )";
+                db = SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath(DBFileName), null);
+                db.execSQL(SQL);
+                db.execSQL(SQL2);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
 
         //Add to Reports table in DB
         String SQL = "INSERT INTO Reports(Title,WeatherType,Location,DateTime,Details) VALUES ('" + r.title + "','" + r.wType + "','" + r.location + "','" + r.dateTime + "','" + r.details + "')'";
