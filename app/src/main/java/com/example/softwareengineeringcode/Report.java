@@ -19,7 +19,7 @@ public class Report {
     String dateTime;
 
     public Report() {
-        this.title = "";
+        this.title = "Empty Report";
         this.pictures = new ArrayList<>();
         this.details = "";
         this.wType = "";
@@ -49,6 +49,8 @@ public class Report {
     public void setwType(String wType) {
         this.wType = wType;
     }
+
+    public String getwType() { return wType; }
 
     public void setLocation(String location) {
         this.location = location;

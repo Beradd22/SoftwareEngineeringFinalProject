@@ -41,8 +41,6 @@ public class ViewReportFragment extends Fragment {
                     ((MainActivity)getActivity()).setReportToDisplay(report);
                 }
             }
-
-
         }
     };
 
@@ -52,7 +50,9 @@ public class ViewReportFragment extends Fragment {
         public void onClick(View v) {
             listOfReports = ((MainActivity) getActivity()).getAccessDB().getAllReports();
 
-            updateReportList();
+            if (listOfReports.size() > 0) {
+                updateReportList();
+            }
 
         }
     };

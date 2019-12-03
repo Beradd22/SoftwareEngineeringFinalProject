@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -12,11 +14,63 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.softwareengineeringcode.MainActivity;
 import com.example.softwareengineeringcode.R;
+import com.example.softwareengineeringcode.Report;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private int imageCounter = 0;
+    private Button nextImageButton;
+    private Button prevImageButton;
+    private Button lastReportButton;
+    private Button selectedReportButton;
+
+    private TextView reportTitle;
+    private TextView reportDets;
+    private ImageView reportImage;
+    private TextView weatherDets;
+    private TextView Date;
+
+    private Button.OnClickListener nextImage = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v){
+
+        }
+    };
+
+    private Button.OnClickListener previousImage = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v){
+
+        }
+    };
+
+    private Button.OnClickListener showLastReport = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v){
+            Report tempReport = ((MainActivity)getActivity()).getAccessDB().getNewestReport();
+
+            reportTitle.setText(tempReport.getTitle());
+            reportDets.setText(tempReport.getDetails());
+            weatherDets.setText(tempReport.getwType());
+            Date.setText(tempReport.getDateTime());
+
+            if (tempReport.getPictures().size() > 0) {
+
+            }
+
+
+        }
+    };
+
+    private Button.OnClickListener showSelectedReport = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v){
+
+        }
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +84,25 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        reportTitle = (TextView)root.findViewById(R.id.report_title);
+        reportDets = (TextView)root.findViewById(R.id.report_details);
+        weatherDets= (TextView)root.findViewById(R.id.weather_details);
+        Date = (TextView)root.findViewById(R.id.report_date);
+        reportImage = (ImageView)root.findViewById(R.id.report_images);
+
+        nextImageButton = (Button)root.findViewById(R.id.next_image_button);
+        nextImageButton.setOnClickListener(nextImage);
+
+        prevImageButton = (Button)root.findViewById(R.id.previous_image_button);
+        prevImageButton.setOnClickListener(previousImage);
+
+        lastReportButton = (Button)root.findViewById(R.id.last_report_button);
+        lastReportButton.setOnClickListener(showLastReport);
+
+        selectedReportButton = (Button)root.findViewById(R.id.report_selected_button);
+        selectedReportButton.setOnClickListener(showSelectedReport);
+
         return root;
     }
 }
