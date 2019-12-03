@@ -30,5 +30,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.android.volley:volley:1.1.0'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+' //this should allows the .db file to work
 }

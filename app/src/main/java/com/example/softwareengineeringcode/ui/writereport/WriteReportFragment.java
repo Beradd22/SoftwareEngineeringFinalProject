@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,12 +86,14 @@ public class WriteReportFragment extends Fragment {
             submittedReport.setPictures(convertedImages);
             Images.clear();
 
-            // Sets the report weather data taken from the weather api
-            submittedReport.setwType(getWeather());
-
 
             // Sets the location after receiving GPS data
             submittedReport.setLocation(getLocation());
+
+
+            // Sets the report weather data taken from the weather api
+            submittedReport.setwType(getWeather());
+
 
             // Calls the access database class
             // from main activity and sends the
@@ -154,13 +157,11 @@ public class WriteReportFragment extends Fragment {
     }
 
     private String getWeather() {
-        String weather = "";
-
-        return weather;
+        return ((MainActivity)getActivity()).getWeather();
     }
 
     // Calls the get location function in main
-    private  String getLocation() {
+    private String getLocation() {
         return ((MainActivity)getActivity()).getLocation();
     }
 }
